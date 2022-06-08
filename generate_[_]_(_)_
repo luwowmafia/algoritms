@@ -1,0 +1,92 @@
+from datetime import datetime
+import time
+start_time = datetime.now()
+#############################
+def obertka(i): #обертка одного скобочного элемента
+    l=[]
+    l.append('('+i+')')
+    l.append('['+i+']')
+    return l
+def povtor(i):
+    l=[]
+    l.append(i+'()')
+    l.append(i+'[]')
+    return l
+def generate_povtor():
+    a='()'
+    b='[]'
+    sp=[povtor(a),povtor(b)]
+    sum_sp=new_generate_povtor(sp)
+    for k in range(4):
+        l = []
+        sp=new_generate_povtor(sp)
+        for i in sp:
+            l.append(povtor(i))
+        sum_sp+=new_generate_povtor(l)
+        sp=l
+    return sum_sp
+def new_generate_povtor(a):
+    new_sp = []
+    for i in a:
+        for k in i:
+            new_sp.append(k)
+    return new_sp
+
+
+def new_generate(a):
+    sp = []
+    for i in a:
+        sp.append(obertka(i))
+    new_sp = []
+    for i in sp:
+        for k in i:
+            new_sp.append(k)
+    return new_sp
+def generate():
+    n=6
+    a=['()','[]']
+    sum_sp=a
+    for k in range(n//2+1):
+        sum_sp+=new_generate(a)
+        a=new_generate(a)
+    return sum_sp
+def generate_vnutr():
+    a = '[()]'
+    b = '([])'
+
+    sp = [povtor(a), povtor(b)]
+    sum_sp = new_generate_povtor(sp)
+    for k in range(4):
+        l = []
+        sp = new_generate_povtor(sp)
+        for i in sp:
+            l.append(povtor(i))
+        sum_sp += new_generate_povtor(l)
+        sp = l
+
+    return sum_sp
+
+n=int(input())
+l1,l2=[],[]
+rezult1=generate()
+rezult2=generate_povtor()
+rezult3=new_generate(rezult2)
+rezult4=generate_vnutr()
+for i in rezult4:
+    if len(i)==n:
+        print(i,sep='\n')
+        #l1.append(i)
+
+'''for i in rezult2:
+    if len(i)==n:
+        print(i,sep='\n')
+        #l2.append(i)
+for i in rezult3:
+    if len(i)==n:
+        print(i,sep='\n')
+        #l2.append(i)
+'''
+
+
+##############################
+print(datetime.now() - start_time)
