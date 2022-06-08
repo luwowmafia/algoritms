@@ -1,0 +1,44 @@
+def numerics(n):
+    num=str(n)
+    l=[int(i) for i in num]
+    return l
+def kaprekar_step(L):
+    num1=sorted(L,reverse=True)
+    num2=sorted(L)
+    ns1=''
+    ns2=''
+    for i in num1: ns1+=str(i)
+    for i in num2: ns2+=str(i)
+    return int(ns1)-int(ns2)
+def kaprekar_loop(n):
+        if kaprekar_check(n)== False:
+            print(f'Ошибка! На вход подано число {n}, не удовлетворяющее условиям процесса Капрекара')
+        else:
+            l=[]
+            l.append(n)
+            print(n)
+            if n!=6174 or n!=495 or n!=549945 or n!=631764:
+                t = numerics(n)
+                t = kaprekar_step(t)
+                l.append(t)
+                if t!=n:
+                    print(t)
+            while t not in [495, 6174, 549945, 631764]:
+                t = numerics(t)
+                t=kaprekar_step(t)
+                if t in l:
+                    print(f'Следующее число - {t}, кажется процесс зациклился...')
+                    break
+                else:
+                    l.append(t)
+                    print(t)
+            #print(l)
+
+def kaprekar_check(n):
+    if 100<n<1000 or 1000<n<10_000 or 100_000<n<1_000_000:
+        if n == 1000 or n == 100 or n == 100_000 or len(set(str(n))) == 1:
+            return False
+        else: return True
+    else: return  False
+n=int(input())
+kaprekar_loop(n)
