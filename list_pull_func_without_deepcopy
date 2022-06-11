@@ -1,0 +1,12 @@
+def list_pull(L):
+    if isinstance(L, list):
+        return list(map(list_pull, L))
+    return L
+
+l=[['one'], [343, 2], [[9, 9, 9], [[666, 666], [[[[42]]]]]]]
+print(l)
+L2 = list_pull(l)
+print(L2)
+l[2][1][1][0][0][0][0] = 'z'
+print(l)
+print(L2)
